@@ -26,9 +26,9 @@ class Server extends UnicastRemoteObject implements RemoteServerInterface {
     public static void main(String[] args) {
         try {
             Naming.rebind("//localhost/MyServer", new Server());
-            log.info("Сервер запущен");
+            log.info("Server started");
         } catch (Exception ex) {
-            log.log(Level.SEVERE, "Ошибка при запуске сервера", ex);
+            log.log(Level.SEVERE, "Error while running server: ", ex);
         }
     }
 
@@ -38,7 +38,7 @@ class Server extends UnicastRemoteObject implements RemoteServerInterface {
             byte[] encoded = Files.readAllBytes(filePath);
             return new String(encoded, StandardCharsets.UTF_8);
         } catch (IOException ex) {
-            log.severe("Ошибка при чтении файла: " + ex.toString());
+            log.severe("Error reading the file: " + ex.toString());
             throw new RemoteException(ex.getMessage(), ex);
         }
     }
@@ -51,7 +51,7 @@ class Server extends UnicastRemoteObject implements RemoteServerInterface {
             fw.newLine();
             fw.close();
         } catch (IOException ex) {
-            log.severe("Ошибка при записи: " + ex.toString());
+            log.severe("Error writing to the file: " + ex.toString());
             throw new RemoteException(ex.getMessage(), ex);
         }
     }
